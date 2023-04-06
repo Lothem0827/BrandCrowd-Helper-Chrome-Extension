@@ -49,21 +49,10 @@ class App {
         setTimeout(() => {
           if (removeAnimationBtn) removeAnimationBtn.click();
         }, 500);
-
-        // document
-        //   .getElementsByClassName(
-        //     "tw-font-sans tw-cursor-pointer tw-border-2 tw-border-solid tw-font-bold tw-uppercase tw-bg-transparent tw-transition-colors tw-duration-300 tw-border-secondary-500 tw-text-secondary-500 hover:tw-bg-secondary-100 tw-text-xs tw-py-2 tw-px-5 tw-rounded"
-        //   )[1]
-        //   .click();
-        // setTimeout(
-        //   () => document.getElementById("animation-item-null").click(),
-        //   500
-        // );
       });
     };
 
-    const mutationObserver = new MutationObserver((entries) => {
-      console.log(entries);
+    const mutationObserver = new MutationObserver(() => {
       removeAnimation();
     });
 
@@ -71,12 +60,36 @@ class App {
   }
 
   _stretcharooHandlder() {
-    const checkBoxHTML = `<br><input type="checkbox" id="templateTypeCheck" name="templateTypeCheck">
-<label for="templateTypeCheck"> Select templates for stretching </label><br>`;
-    const templateType = document.getElementsByTagName("select")[5].innerHTML;
-
     //template type to check
-    const typeArr = ["Facebook post", "Twitter post", "Poster", "Postcard"];
+    const typeArr = [
+      "Facebook post",
+      "LinkedIn post",
+      "Instagram post",
+      "Facebook story",
+      "Instagram story",
+      "Twitter post",
+      "Pinterest Pin",
+      "Facebook ad",
+      "Facebook cover",
+      "Facebook event cover",
+      "Poster",
+      "Flyer",
+      "Postcard",
+      "Tiktok video",
+      "Instagram reel",
+      "YouTube short",
+      "Youtube video",
+      "Video",
+      "Animation",
+    ];
+
+    const templateTypesSelect = document.getElementsByTagName("select")[5];
+    //     const checkBoxHTML = `<br><input type="checkbox" id="templateTypeCheck" name="templateTypeCheck">
+    // <label for="templateTypeCheck"> <strong>Select:</strong> ${[
+    //       ...typeArr,
+    //     ]} </label><br>`;
+    const checkBoxHTML = `<br><input type="checkbox" id="templateTypeCheck" name="templateTypeCheck">
+<label for="templateTypeCheck"> <strong>Main templates for stretching</strong>`;
 
     //inserting checkbox
     document
@@ -87,17 +100,41 @@ class App {
 
     const changeHandler = function () {
       if (templateTypeCheck.checked) {
-        console.log("check");
         filteredType();
+        templateTypesSelect.setAttribute(
+          "size",
+          templateTypesSelect.options.length
+        );
       } else {
-        console.log("uncheck");
+        window.location.reload();
       }
     };
 
-    const filteredType = function () {};
+    const filteredType = function () {
+      [...templateTypesSelect.options].filter((option) => {
+        if (!typeArr.includes(option.innerText)) option.remove();
+      });
+    };
 
     templateTypeCheck.addEventListener("change", changeHandler);
   }
 }
 
 const app = new App();
+
+// var my_awesome_script = document.createElement("script");
+
+// my_awesome_script.setAttribute(
+//   "src",
+//   "https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"
+// );
+
+// document.head.appendChild(my_awesome_script);
+
+// document.getElementsByTagName("Section")[0].classList.remove("section--gray");
+// document.getElementsByClassName("section")[0].style.backgroundColor = "#131313";
+
+// function addDarkmodeWidget() {
+//   new Darkmode().showWidget();
+// }
+// document.addEventListener("click", addDarkmodeWidget);
