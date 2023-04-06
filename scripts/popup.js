@@ -122,19 +122,41 @@ class App {
 
 const app = new App();
 
-// var my_awesome_script = document.createElement("script");
+const section = document.getElementsByClassName("section")[0];
+const colorPickerHTML = `<input type="color" id="color-picker" class="maker-tool">BACKGROUND COLOR</input>`;
 
-// my_awesome_script.setAttribute(
-//   "src",
-//   "https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"
-// );
+section.classList.remove("section--gray");
 
-// document.head.appendChild(my_awesome_script);
+document
+  .getElementsByClassName("column expand")[0]
+  .insertAdjacentHTML("beforeend", colorPickerHTML);
 
-// document.getElementsByTagName("Section")[0].classList.remove("section--gray");
-// document.getElementsByClassName("section")[0].style.backgroundColor = "#131313";
+const color = document.querySelector("#color-picker");
 
-// function addDarkmodeWidget() {
-//   new Darkmode().showWidget();
-// }
-// document.addEventListener("click", addDarkmodeWidget);
+color.addEventListener(
+  "input",
+  () => {
+    section.style.backgroundColor = `${color.value}`;
+    section.childNodes[1].style.filter = "invert(1)";
+
+    section.childNodes[3].style.filter = "invert(1)";
+
+    section.childNodes[7].style.filter = "invert(1)";
+  },
+  false
+);
+//1,3,7,13
+// section.style.backgroundColor = "#131313";
+// section.style.filter = "invert(1)";
+
+// section.childNodes[1].style.filter = "invert(1)";
+
+// section.childNodes[3].style.filter = "invert(1)";
+
+// section.childNodes[7].style.filter = "invert(1)";
+
+document
+  .querySelectorAll(".button")
+  .forEach((button) => (button.style.filter = "saturate(20%)"));
+
+// color.addEventListener("change", () => console.log(color.value), false);
