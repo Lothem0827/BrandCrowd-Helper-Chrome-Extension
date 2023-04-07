@@ -1,37 +1,37 @@
 class App {
   constructor() {
-    this._copyTagHandler();
+    // this._copyTagHandler();
     this._removeAnimationHandler();
     this._stretcharooHandlder();
     this._bgColorChangeHandler();
   }
 
-  _copyTagButtonInit() {
-    //Create Copy Tag Button
-    const copyTagBtnHTML = `<button id="copyTagBtn" class="button mbn" style="margin-top: 12px;"> Copy Tags </button>`;
+  // _copyTagButtonInit() {
+  //   //Create Copy Tag Button
+  //   const copyTagBtnHTML = `<button id="copyTagBtn" class="button mbn" style="margin-top: 12px;"> Copy Tags </button>`;
 
-    document
-      .getElementsByClassName("column small-12 medium-6 mbl")[0]
-      .insertAdjacentHTML("beforeend", copyTagBtnHTML);
-  }
+  //   document
+  //     .getElementsByClassName("column small-12 medium-6 mbl")[0]
+  //     .insertAdjacentHTML("beforeend", copyTagBtnHTML);
+  // }
 
-  _copyTagHandler() {
-    this._copyTagButtonInit();
-    const copyTagBtn = document.getElementById("copyTagBtn");
+  // _copyTagHandler() {
+  //   this._copyTagButtonInit();
+  //   const copyTagBtn = document.getElementById("copyTagBtn");
 
-    const getTags = function () {
-      const str = document.querySelectorAll(".select2-selection__rendered")[1]
-        .innerText;
+  //   const getTags = function () {
+  //     const str = document.querySelectorAll(".select2-selection__rendered")[1]
+  //       .innerText;
 
-      const reg = str.replaceAll(`\n`, `, `);
-      const tags = reg.replaceAll(`×`, ``) + `,`;
+  //     const reg = str.replaceAll(`\n`, `, `);
+  //     const tags = reg.replaceAll(`×`, ``) + `,`;
 
-      if (confirm("Copy this tags? \n" + tags))
-        navigator.clipboard.writeText(tags);
-    };
+  //     if (confirm("Copy this tags? \n" + tags))
+  //       navigator.clipboard.writeText(tags);
+  //   };
 
-    copyTagBtn.addEventListener("click", getTags);
-  }
+  //   copyTagBtn.addEventListener("click", getTags);
+  // }
 
   _removeAnimationHandler() {
     const canvas = document.querySelector(".maker-canvas-frame, .mbm");
@@ -186,4 +186,7 @@ class App {
   }
 }
 
-const app = new App();
+//const app = new App();
+// import { copyTagHandler } from "./custom_modules/copy-tag.js";
+
+copyTagHandler();

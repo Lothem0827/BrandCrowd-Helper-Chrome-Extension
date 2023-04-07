@@ -20,7 +20,7 @@
 
   "content_scripts": [
     {
-      "js": ["./scripts/popup.js"],
+      "js": ["./scripts/custom_modules/copy-tag.js", "./scripts/popup.js"],
       "matches": ["https://www.brandcrowd.com/maker/admin/template/update/*"]
     }
   ]
