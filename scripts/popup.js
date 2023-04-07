@@ -3,11 +3,13 @@ class App {
     this._copyTagHandler();
     this._removeAnimationHandler();
     this._stretcharooHandlder();
+    this._bgColorChangeHandler();
   }
 
   _copyTagButtonInit() {
     //Create Copy Tag Button
     const copyTagBtnHTML = `<button id="copyTagBtn" class="button mbn" style="margin-top: 12px;"> Copy Tags </button>`;
+
     document
       .getElementsByClassName("column small-12 medium-6 mbl")[0]
       .insertAdjacentHTML("beforeend", copyTagBtnHTML);
@@ -48,7 +50,7 @@ class App {
 
         setTimeout(() => {
           if (removeAnimationBtn) removeAnimationBtn.click();
-        }, 500);
+        }, 300);
       });
     };
 
@@ -84,19 +86,35 @@ class App {
     ];
 
     const templateTypesSelect = document.getElementsByTagName("select")[5];
-    //     const checkBoxHTML = `<br><input type="checkbox" id="templateTypeCheck" name="templateTypeCheck">
-    // <label for="templateTypeCheck"> <strong>Select:</strong> ${[
-    //       ...typeArr,
-    //     ]} </label><br>`;
-    const checkBoxHTML = `<br><input type="checkbox" id="templateTypeCheck" name="templateTypeCheck">
-<label for="templateTypeCheck"> <strong>Main templates for stretching</strong>`;
-
+    const saveTemplateBtn = document.getElementById("save-template");
+    const checkBoxHTML = `<br><input type="checkbox" id="templateTypeCheck" name="templateTypeCheck"> <label for="templateTypeCheck"> <strong>Main templates for stretching</strong>`;
+    const saveProgressCallout = document.getElementById(
+      "template-update-success-callout"
+    );
     //inserting checkbox
     document
       .getElementsByClassName("column expand")[0]
       .insertAdjacentHTML("beforeend", checkBoxHTML);
 
     const templateTypeCheck = document.getElementById("templateTypeCheck");
+
+    const isSaveChecker = function () {
+      const mutationObserver = new MutationObserver((mutationsList) => {
+        mutationsList.forEach((mutation) => {
+          console.log(mutationsList);
+          if (mutation.attributeName === "class") {
+            window.location.reload();
+          }
+        });
+      });
+
+      mutationObserver.observe(saveProgressCallout, { attributes: true });
+    };
+
+    const savePrompt = function () {
+      saveTemplateBtn.click();
+      isSaveChecker();
+    };
 
     const changeHandler = function () {
       if (templateTypeCheck.checked) {
@@ -106,7 +124,7 @@ class App {
           templateTypesSelect.options.length
         );
       } else {
-        window.location.reload();
+        savePrompt();
       }
     };
 
@@ -118,45 +136,54 @@ class App {
 
     templateTypeCheck.addEventListener("change", changeHandler);
   }
+
+  _bgColorChangeHandler() {
+    const section = document.getElementsByClassName("section")[0];
+    const colorPickerStyleStr = `style=" width: 40px; height: 40px; border: 1px; padding: 1px; position: sticky; bottom: 0; left: 98%;"`;
+
+    const colorPickerHTML = `<input type="color" id="color-picker" ${colorPickerStyleStr}  ></input>`;
+
+    document.body.style.backgroundColor = "#F4F4F4";
+    section.classList.remove("section--gray");
+
+    document.body.insertAdjacentHTML("beforeend", colorPickerHTML);
+
+    const color = document.querySelector("#color-picker");
+
+    color.addEventListener(
+      "input",
+      () => {
+        invert(color.value);
+        const colorHex = color.value;
+
+        const r = parseInt(colorHex.substr(1, 2), 16);
+        const g = parseInt(colorHex.substr(3, 2), 16);
+        const b = parseInt(colorHex.substr(5, 2), 16);
+
+        console.log(r, g, b);
+      },
+      false
+    );
+
+    // color.addEventListener("change", () => console.log(color.value), false);
+
+    const invert = function (pickColor) {
+      document.body.style.backgroundColor = `${pickColor}`;
+      section.style.backgroundColor = `${pickColor}`;
+
+      const divNodes = [...section.childNodes].filter(
+        (child) => child.nodeName != "#text"
+      );
+
+      divNodes.forEach((x) => (x.style.filter = "invert(1)"));
+
+      document
+        .querySelectorAll(".button")
+        .forEach((button) => (button.style.filter = "grayscale(70%)"));
+
+      document.getElementById("admin-maker-container").style.filter = "";
+    };
+  }
 }
 
 const app = new App();
-
-const section = document.getElementsByClassName("section")[0];
-const colorPickerHTML = `<input type="color" id="color-picker" class="maker-tool">BACKGROUND COLOR</input>`;
-
-section.classList.remove("section--gray");
-
-document
-  .getElementsByClassName("column expand")[0]
-  .insertAdjacentHTML("beforeend", colorPickerHTML);
-
-const color = document.querySelector("#color-picker");
-
-color.addEventListener(
-  "input",
-  () => {
-    section.style.backgroundColor = `${color.value}`;
-    section.childNodes[1].style.filter = "invert(1)";
-
-    section.childNodes[3].style.filter = "invert(1)";
-
-    section.childNodes[7].style.filter = "invert(1)";
-  },
-  false
-);
-//1,3,7,13
-// section.style.backgroundColor = "#131313";
-// section.style.filter = "invert(1)";
-
-// section.childNodes[1].style.filter = "invert(1)";
-
-// section.childNodes[3].style.filter = "invert(1)";
-
-// section.childNodes[7].style.filter = "invert(1)";
-
-document
-  .querySelectorAll(".button")
-  .forEach((button) => (button.style.filter = "saturate(20%)"));
-
-// color.addEventListener("change", () => console.log(color.value), false);
