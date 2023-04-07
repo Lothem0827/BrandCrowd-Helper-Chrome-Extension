@@ -2,9 +2,7 @@ const copyTagHandler = function () {
   _copyTagButtonInit();
 
   const copyTagBtn = document.getElementById("copyTagBtn");
-  copyTagBtn.addEventListener("click", getTags);
-
-  console.log("sdef");
+  copyTagBtn.addEventListener("click", _getTags);
 };
 
 const _copyTagButtonInit = function () {
@@ -17,7 +15,7 @@ const _copyTagButtonInit = function () {
   templateTagContainer.insertAdjacentHTML("beforeend", copyTagBtnHTML);
 };
 
-const getTags = function () {
+const _getTags = function () {
   const str = document.querySelectorAll(".select2-selection__rendered")[1]
     .innerText;
 
