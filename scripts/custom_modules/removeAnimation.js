@@ -9,10 +9,10 @@ const removeAnimationHandler = function () {
       )[1];
       const removeAnimationBtn = document.getElementById("animation-item-null");
 
-      if (changeAnimationBtn) changeAnimationBtn.click();
+      changeAnimationBtn && changeAnimationBtn.click();
 
       setTimeout(() => {
-        if (removeAnimationBtn) removeAnimationBtn.click();
+        removeAnimationBtn && removeAnimationBtn.click();
       }, 300);
     });
   };

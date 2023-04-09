@@ -1,5 +1,5 @@
-const stretcharooHandlder = function () {
-  //template type to check
+const stretcharooHelper = function () {
+  //template types to check
   const typeArr = [
     "Facebook post",
     "LinkedIn post",

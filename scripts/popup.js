@@ -1,9 +1,9 @@
 class App {
   constructor() {
-    copyTagHandler();
     removeAnimationHandler();
-    stretcharooHandlder();
-    bgColorChangeHandler();
+    stretcharooHelper();
+    //bgColorChangeHandler();
+    copyTagHandler();
   }
 }
 const app = new App();

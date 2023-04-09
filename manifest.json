@@ -16,15 +16,15 @@
     }
   },
 
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
 
   "content_scripts": [
     {
       "js": [
-        "./scripts/custom_modules/copy-tag.js",
-        "./scripts/custom_modules/remove-animation.js",
-        "./scripts/custom_modules/stretcharoo-helper.js",
-        "./scripts/custom_modules/background-color-changer.js",
+        "./scripts/custom_modules/copyTag.js",
+        "./scripts/custom_modules/removeAnimation.js",
+        "./scripts/custom_modules/stretcharooHelper.js",
+        "./scripts/custom_modules/backgroundColorChanger.js",
         "./scripts/popup.js"
       ],
       "matches": ["https://www.brandcrowd.com/maker/admin/template/update/*"]

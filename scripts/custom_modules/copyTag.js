@@ -1,4 +1,4 @@
-const copyTagHandler = function () {
+copyTagHandler = function () {
   _copyTagButtonInit();
 
   const copyTagBtn = document.getElementById("copyTagBtn");

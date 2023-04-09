@@ -12,16 +12,27 @@ const bgColorChangeHandler = function () {
   const color = document.querySelector("#color-picker");
 
   color.addEventListener(
-    "input",
+    "change",
     () => {
       invert(color.value);
       const colorHex = color.value;
 
-      const r = parseInt(colorHex.substr(1, 2), 16);
-      const g = parseInt(colorHex.substr(3, 2), 16);
-      const b = parseInt(colorHex.substr(5, 2), 16);
+      //   const r = parseInt(colorHex.substr(1, 2), 16);
+      //   const g = parseInt(colorHex.substr(3, 2), 16);
+      //   const b = parseInt(colorHex.substr(5, 2), 16);
 
-      console.log(r, g, b);
+      //   console.log(r, g, b);
+      chrome.storage.sync.set({ color: colorHex }, function () {
+        console.log("save: ", colorHex);
+      });
+    },
+    false
+  );
+
+  color.addEventListener(
+    "input",
+    () => {
+      invert(color.value);
     },
     false
   );
@@ -44,4 +55,21 @@ const bgColorChangeHandler = function () {
 
     document.getElementById("admin-maker-container").style.filter = "";
   };
+
+  chrome.storage.sync.get("color", function (data) {
+    document.body.style.backgroundColor = `${data.color}`;
+    section.style.backgroundColor = `${data.color}`;
+
+    const divNodes = [...section.childNodes].filter(
+      (child) => child.nodeName != "#text"
+    );
+
+    divNodes.forEach((x) => (x.style.filter = "invert(1)"));
+
+    document
+      .querySelectorAll(".button")
+      .forEach((button) => (button.style.filter = "grayscale(70%)"));
+
+    document.getElementById("admin-maker-container").style.filter = "";
+  });
 };
